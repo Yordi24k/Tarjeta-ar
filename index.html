@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarjeta AR - Yordi Flores</title>
     
-    <!-- Librerías de A-Frame y AR.js -->
+    <!-- Librerías A-Frame y AR.js -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     
@@ -13,7 +13,7 @@
         body { 
             margin: 0; 
             overflow: hidden; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: Arial, sans-serif; 
         }
         
         #ui-container {
@@ -22,59 +22,66 @@
             left: 0; 
             width: 100%;
             text-align: center; 
-            z-index: 10; 
+            z-index: 9999; 
             display: none;
         }
         
         .btn-portafolio {
-            padding: 12px 24px; 
+            padding: 14px 28px; 
             background-color: #00AEEF; 
             color: #FFFFFF;
             text-decoration: none; 
             border-radius: 8px; 
             font-weight: bold;
-            box-shadow: 0px 4px 6px rgba(0,0,0,0.3);
+            font-size: 16px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
             border: 2px solid #00FF00;
-            transition: background-color 0.3s;
-        }
-
-        .btn-portafolio:hover {
-            background-color: #00FF00;
-            color: #000;
+            display: inline-block;
         }
     </style>
 </head>
 <body>
 
-    <!-- Botón HTML que aparece sobre la cámara -->
+    <!-- Botón HTML superpuesto en la pantalla -->
     <div id="ui-container">
-        <!-- Reemplaza el enlace con tu URL real de GitHub o LinkedIn -->
-        <a href="https://github.com/yordiflores" class="btn-portafolio" target="_blank">Ver Portafolio de Proyectos</a>
+        <a href="https://github.com/Yordi24k" class="btn-portafolio" target="_blank">🚀 Ver Portafolio GitHub</a>
     </div>
 
+    <!-- Escena de Realidad Aumentada -->
     <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" vr-mode-ui="enabled: false">
         
-        <!-- LADO FRONTAL DE LA TARJETA: Marcador Hiro -->
+        <!-- Pre-carga de recursos para renderizado correcto -->
+        <a-assets>
+            <img id="mi-foto" src="foto.png">
+        </a-assets>
+
+        <!-- LADO FRONTAL: Marcador Hiro -->
         <a-marker preset="hiro" id="hiro-marker">
             
-            <!-- Asegúrate de tener una imagen llamada foto.png en la misma carpeta de Visual Studio -->
-            <a-image src="foto.png" position="-1.2 0.5 0" rotation="-90 0 0" width="1.5" height="1.5"></a-image>
+            <!-- Panel base 3D de fondo (Asegura visibilidad del marco 3D) -->
+            <a-plane position="0 0.1 0" rotation="-90 0 0" width="3.2" height="2" color="#111827" opacity="0.9" side="double"></a-plane>
+            <a-plane position="0 0.11 0" rotation="-90 0 0" width="3.25" height="2.05" color="#00FF00" opacity="0.6" wireframe="true" side="double"></a-plane>
 
-            <!-- Nota: En A-Frame se omiten acentos para evitar errores de renderizado en la fuente 3D -->
+            <!-- Foto de perfil -->
+            <a-image src="#mi-foto" position="-1 0.2 0" rotation="-90 0 0" width="0.9" height="1.1" side="double"></a-image>
+
+            <!-- Textos informativos 3D -->
             <a-text value="Yordi Flores Gomez" 
-                    position="0 0.5 -0.6" rotation="-90 0 0" color="#00FF00" width="4" font="mozillavr"></a-text>
+                    position="-0.3 0.2 -0.6" rotation="-90 0 0" color="#00FF00" width="3.5" side="double"></a-text>
             
-            <a-text value="Estudiante de Ing. en Computacion y Redes" 
-                    position="0 0.5 -0.2" rotation="-90 0 0" color="#00AEEF" width="2.5"></a-text>
+            <a-text value="Ing. en Computacion y Redes" 
+                    position="-0.3 0.2 -0.3" rotation="-90 0 0" color="#00AEEF" width="2.8" side="double"></a-text>
 
-            <a-text value="Especialidades:\n- Infraestructura y Redes (Cisco IOS)\n- Sistemas Digitales (VHDL)\n- Desarrollo C/C++ y VB.NET\n- AWS Cloud" 
-                    position="0 0.5 0.5" rotation="-90 0 0" color="#FFFFFF" width="2.5"></a-text>
+            <a-text value="Especialidades:\n- Redes & Cisco IOS\n- VHDL & Sistemas Digitales\n- C/C++ & VB.NET\n- AWS Cloud" 
+                    position="-0.3 0.2 0.3" rotation="-90 0 0" color="#FFFFFF" width="2.2" side="double"></a-text>
+
         </a-marker>
 
-        <!-- LADO TRASERO DE LA TARJETA: Marcador Kanji -->
+        <!-- LADO TRASERO: Marcador Kanji -->
         <a-marker preset="kanji" id="back-marker">
-            <a-text value="Proyectos Destacados:\n\n1. Topologias Multi-VLAN y Routing\n2. Sistema IoT Eco-Green (Arduino/C++)\n3. Simulador Banker's Algorithm (VB.NET)\n4. Diseno Digital y Microcontroladores" 
-                    position="-1 0.5 0" rotation="-90 0 0" color="#00FF00" width="3.5"></a-text>
+            <a-plane position="0 0.1 0" rotation="-90 0 0" width="3.2" height="2" color="#0d1117" opacity="0.9" side="double"></a-plane>
+            <a-text value="Proyectos Destacados:\n\n1. Topologias Multi-VLAN Cisco\n2. Sistema IoT Eco-Green\n3. Simulador Banker's Algorithm\n4. Shell personalizado en C" 
+                    position="-1.3 0.2 0" rotation="-90 0 0" color="#00FF00" width="3.2" side="double"></a-text>
         </a-marker>
 
         <a-entity camera></a-entity>
@@ -82,15 +89,12 @@
 
     <script>
         const hiroMarker = document.querySelector('#hiro-marker');
-        const backMarker = document.querySelector('#back-marker');
         const uiContainer = document.querySelector('#ui-container');
 
-        // Muestra el botón del portafolio al escanear el lado frontal
         hiroMarker.addEventListener('markerFound', function() {
             uiContainer.style.display = 'block';
         });
 
-        // Oculta el botón si se pierde el código de la cámara
         hiroMarker.addEventListener('markerLost', function() {
             uiContainer.style.display = 'none';
         });
