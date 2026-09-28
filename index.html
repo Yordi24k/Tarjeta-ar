@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta AR - Yordi Flores</title>
+    
+    <!-- Librerías de A-Frame y AR.js -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    
+    <style>
+        body { 
+            margin: 0; 
+            overflow: hidden; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
+        
+        #ui-container {
+            position: absolute; 
+            bottom: 30px; 
+            left: 0; 
+            width: 100%;
+            text-align: center; 
+            z-index: 10; 
+            display: none;
+        }
+        
+        .btn-portafolio {
+            padding: 12px 24px; 
+            background-color: #00AEEF; 
+            color: #FFFFFF;
+            text-decoration: none; 
+            border-radius: 8px; 
+            font-weight: bold;
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.3);
+            border: 2px solid #00FF00;
+            transition: background-color 0.3s;
+        }
+
+        .btn-portafolio:hover {
+            background-color: #00FF00;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botón HTML que aparece sobre la cámara -->
+    <div id="ui-container">
+        <!-- Reemplaza el enlace con tu URL real de GitHub o LinkedIn -->
+        <a href="https://github.com/yordiflores" class="btn-portafolio" target="_blank">Ver Portafolio de Proyectos</a>
+    </div>
+
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" vr-mode-ui="enabled: false">
+        
+        <!-- LADO FRONTAL DE LA TARJETA: Marcador Hiro -->
+        <a-marker preset="hiro" id="hiro-marker">
+            
+            <!-- Asegúrate de tener una imagen llamada foto.png en la misma carpeta de Visual Studio -->
+            <a-image src="foto.png" position="-1.2 0.5 0" rotation="-90 0 0" width="1.5" height="1.5"></a-image>
+
+            <!-- Nota: En A-Frame se omiten acentos para evitar errores de renderizado en la fuente 3D -->
+            <a-text value="Yordi Flores Gomez" 
+                    position="0 0.5 -0.6" rotation="-90 0 0" color="#00FF00" width="4" font="mozillavr"></a-text>
+            
+            <a-text value="Estudiante de Ing. en Computacion y Redes" 
+                    position="0 0.5 -0.2" rotation="-90 0 0" color="#00AEEF" width="2.5"></a-text>
+
+            <a-text value="Especialidades:\n- Infraestructura y Redes (Cisco IOS)\n- Sistemas Digitales (VHDL)\n- Desarrollo C/C++ y VB.NET\n- AWS Cloud" 
+                    position="0 0.5 0.5" rotation="-90 0 0" color="#FFFFFF" width="2.5"></a-text>
+        </a-marker>
+
+        <!-- LADO TRASERO DE LA TARJETA: Marcador Kanji -->
+        <a-marker preset="kanji" id="back-marker">
+            <a-text value="Proyectos Destacados:\n\n1. Topologias Multi-VLAN y Routing\n2. Sistema IoT Eco-Green (Arduino/C++)\n3. Simulador Banker's Algorithm (VB.NET)\n4. Diseno Digital y Microcontroladores" 
+                    position="-1 0.5 0" rotation="-90 0 0" color="#00FF00" width="3.5"></a-text>
+        </a-marker>
+
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+        const hiroMarker = document.querySelector('#hiro-marker');
+        const backMarker = document.querySelector('#back-marker');
+        const uiContainer = document.querySelector('#ui-container');
+
+        // Muestra el botón del portafolio al escanear el lado frontal
+        hiroMarker.addEventListener('markerFound', function() {
+            uiContainer.style.display = 'block';
+        });
+
+        // Oculta el botón si se pierde el código de la cámara
+        hiroMarker.addEventListener('markerLost', function() {
+            uiContainer.style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>
