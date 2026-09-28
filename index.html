@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Evitamos el zoom táctil en móviles para no deformar la cámara -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tarjeta AR - Yordi Flores</title>
     
     <!-- Librerías A-Frame y AR.js -->
@@ -42,23 +43,24 @@
 </head>
 <body>
 
-    <!-- Botón HTML superpuesto en la pantalla -->
+    <!-- Botón HTML superpuesto -->
     <div id="ui-container">
         <a href="https://github.com/Yordi24k" class="btn-portafolio" target="_blank">🚀 Ver Portafolio GitHub</a>
     </div>
 
-    <!-- Escena de Realidad Aumentada -->
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" vr-mode-ui="enabled: false">
+    <!-- Escena AR ajustada para cámaras de teléfono -->
+    <a-scene embedded 
+             arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono; maxDetectionRate: 60; canvasWidth: 640; canvasHeight: 480;" 
+             vr-mode-ui="enabled: false">
         
-        <!-- Pre-carga de recursos para renderizado correcto -->
         <a-assets>
             <img id="mi-foto" src="foto.png">
         </a-assets>
 
         <!-- LADO FRONTAL: Marcador Hiro -->
-        <a-marker preset="hiro" id="hiro-marker">
+        <a-marker preset="hiro" id="hiro-marker" emitevents="true">
             
-            <!-- Panel base 3D de fondo (Asegura visibilidad del marco 3D) -->
+            <!-- Panel base 3D de fondo -->
             <a-plane position="0 0.1 0" rotation="-90 0 0" width="3.2" height="2" color="#111827" opacity="0.9" side="double"></a-plane>
             <a-plane position="0 0.11 0" rotation="-90 0 0" width="3.25" height="2.05" color="#00FF00" opacity="0.6" wireframe="true" side="double"></a-plane>
 
